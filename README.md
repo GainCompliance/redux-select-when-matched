@@ -1,5 +1,7 @@
 # redux-select-when-matched
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/GainCompliance/redux-select-when-matched.svg)](https://greenkeeper.io/)
+
 resolves a promise with your chosen selection from state when the state allows your predicate to return true
 
 <!-- status badges -->
