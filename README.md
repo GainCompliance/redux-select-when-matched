@@ -1,7 +1,5 @@
 # redux-select-when-matched
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/GainCompliance/redux-select-when-matched.svg)](https://greenkeeper.io/)
-
 resolves a promise with your chosen selection from state when the state allows your predicate to return true
 
 <!-- status badges -->
@@ -27,6 +25,7 @@ $ npm install redux-select-when-matched --prod
 [![Commitizen friendly][commitizen-badge]][commitizen-link]
 [![semantic-release][semantic-release-badge]][semantic-release-link]
 [![PRs Welcome][PRs-badge]][PRs-link]
+[![Greenkeeper badge](https://badges.greenkeeper.io/GainCompliance/redux-select-when-matched.svg)](https://greenkeeper.io/)
 
 ### Dependencies
 
