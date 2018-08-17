@@ -7,7 +7,11 @@ suite('subscription', () => {
   test('that the promise is resolved when the predicate returns `true`', async () => {
     const subscribeToStoreChanges = sinon.spy();
     const item = any.simpleObject();
-    setStore({subscribe: subscribeToStoreChanges});
+    const getState = sinon.stub();
+    getState
+      .onFirstCall().returns(any.simpleObject())
+      .onSecondCall().returns({...any.simpleObject(), foo: {bar: {baz: item}}});
+    setStore({getState, subscribe: subscribeToStoreChanges});
     const stateChangeHandler = subscribeToStoreChanges.getCall(0).args[0];
 
     const promise = subscribe({
@@ -15,9 +19,9 @@ suite('subscription', () => {
       selector: state => state.foo.bar.baz
     });
 
-    stateChangeHandler(any.simpleObject());
+    stateChangeHandler();
 
-    stateChangeHandler({...any.simpleObject(), foo: {bar: {baz: item}}});
+    stateChangeHandler();
 
     assert.equal(await promise, item);
   });
@@ -25,7 +29,11 @@ suite('subscription', () => {
   test('that a promise that has been resolved is not checked again for further state updates', async () => {
     const subscribeToStoreChanges = sinon.spy();
     const selector = sinon.spy();
-    setStore({subscribe: subscribeToStoreChanges});
+    const getState = sinon.stub();
+    getState
+      .onFirstCall().returns(any.simpleObject())
+      .onSecondCall().returns(any.simpleObject());
+    setStore({getState, subscribe: subscribeToStoreChanges});
     const stateChangeHandler = subscribeToStoreChanges.getCall(0).args[0];
 
     const promise = subscribe({
@@ -33,12 +41,12 @@ suite('subscription', () => {
       selector
     });
 
-    stateChangeHandler(any.simpleObject());
+    stateChangeHandler();
 
     await promise;
     selector.resetHistory();
 
-    stateChangeHandler(any.simpleObject());
+    stateChangeHandler();
 
     assert.notCalled(selector);
   });

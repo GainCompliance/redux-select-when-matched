@@ -20,7 +20,9 @@ export function subscribe(subscription) {
 export function setStore(s) {
   store = s;
 
-  store.subscribe(newState => {
+  store.subscribe(() => {
+    const newState = store.getState();
+
     subscriptions = subscriptions
       .map(subscription => {
         if (subscription.predicate(newState)) {
