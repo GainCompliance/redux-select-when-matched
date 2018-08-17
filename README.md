@@ -6,6 +6,26 @@ resolves a promise with your chosen selection from state when the state allows y
 [![Build Status][ci-badge]][ci-link]
 [![Codecov][coverage-badge]][coverage-link]
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+* [redux-select-when-matched](#redux-select-when-matched)
+  * [Usage](#usage)
+    * [Installation](#installation)
+    * [Initialization](#initialization)
+    * [Subscribing to state changes](#subscribing-to-state-changes)
+    * [API](#api)
+      * [`setStore`](#setstore)
+      * [`subscribe`](#subscribe)
+          * [`predicate` (__required__)](#predicate-__required__)
+          * [`selector` (__required__)](#selector-__required__)
+  * [Contributing](#contributing)
+    * [Dependencies](#dependencies)
+    * [Verification](#verification)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Usage
 
 <!-- consumer badges -->
@@ -17,6 +37,58 @@ resolves a promise with your chosen selection from state when the state allows y
 ```sh
 $ npm install redux-select-when-matched --prod
 ```
+
+### Initialization
+
+Your store needs to be provided to the singleton instance
+
+```js
+import {createStore} from 'redux';
+import {setStore} from 'redux-select-when-matched';
+
+const reducer = (state, action) => {
+  // your reducer implementation here
+};
+
+const store = createStore(reducer);
+
+setStore(store);
+```
+
+### Subscribing to state changes
+
+```js
+import {subscribe} from 'redux-select-when-matched';
+import {isLoaded, getResource} from 'duck';
+
+subscribe({
+  predicate: state => isLoaded(state, 'foo-type', id),
+  selector: state => getResource(state, 'foo-type', id)
+}).then(selectedDetailsFromState => {
+  // do what you need to with the details that are now available from state
+});
+```
+
+### API
+
+#### `setStore`
+
+accepts your [`store`](https://redux.js.org/api/createstore) instance so that
+subscriptions can be made against it.
+
+#### `subscribe`
+
+requires an object as input that provides the `predicate` and `selector` for the subscription
+
+###### `predicate` (__required__)
+
+accepts the new state as input, allowing you to inspect and return a boolean
+informing whether or not the promise for this subscription should be resolved
+ 
+###### `selector` (__required__)
+
+accepted the new state as input, allowing you to select within it to return
+the subset of state that your subscriber desires 
 
 ## Contributing
 
