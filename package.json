@@ -35,7 +35,7 @@
     }
   },
   "devDependencies": {
-    "@gaincompliance/eslint-config-gain": "^0.7.12",
+    "@gaincompliance/eslint-config-gain": "^1.0.0",
     "@travi/any": "^1.7.5",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-gain": "^1.1.1",
