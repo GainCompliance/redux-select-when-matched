@@ -10,8 +10,8 @@ export default {
       babelrc: false,
       externalHelpers: true,
       exclude: ['./node_modules/**'],
-      presets: [['gain', {targets: {node: 8, browser: true}, react: true, modules: false}]],
-      plugins: ['external-helpers']
+      presets: [['@gaincompliance', {targets: {node: 8, browser: true}, react: true, modules: false}]],
+      plugins: ['@babel/external-helpers']
     })
   ],
   output: [
