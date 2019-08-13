@@ -6,6 +6,7 @@ export function subscribe(subscription) {
   const promise = new Promise(resolve => {
     promiseResolver = resolve;
   });
+  const state = store.getState();
 
   subscriptions = [
     ...subscriptions, {
@@ -13,6 +14,10 @@ export function subscribe(subscription) {
       resolve: promiseResolver
     }
   ];
+
+  if (subscription.predicate(state)) {
+    promiseResolver(subscription.selector(state));
+  }
 
   return promise;
 }
