@@ -21,8 +21,6 @@ suite('subscription', () => {
 
     stateChangeHandler();
 
-    stateChangeHandler();
-
     assert.equal(await promise, item);
   });
 
