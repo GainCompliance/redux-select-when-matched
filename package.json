@@ -37,7 +37,7 @@
     "@babel/register": "7.7.0",
     "@gaincompliance/babel-preset": "4.0.5",
     "@gaincompliance/eslint-config": "1.0.23",
-    "@gaincompliance/eslint-config-mocha": "1.0.5",
+    "@gaincompliance/eslint-config-mocha": "1.0.6",
     "@travi/any": "2.0.6",
     "ban-sensitive-files": "^1.9.2",
     "chai": "^4.2.0",
