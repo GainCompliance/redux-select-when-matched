@@ -117,7 +117,7 @@ $ npm test
 [license-link]: LICENSE
 [license-badge]: https://img.shields.io/github/license/GainCompliance/redux-select-when-matched.svg
 [ci-link]: https://travis-ci.com/GainCompliance/redux-select-when-matched
-[ci-badge]: https://img.shields.io/travis/GainCompliance/redux-select-when-matched.svg?branch=master
+[ci-badge]: https://img.shields.io/travis/com/GainCompliance/redux-select-when-matched.svg?branch=master
 [coverage-link]: https://codecov.io/github/GainCompliance/redux-select-when-matched
 [coverage-badge]: https://img.shields.io/codecov/c/github/GainCompliance/redux-select-when-matched.svg
 [commit-convention-link]: https://conventionalcommits.org
