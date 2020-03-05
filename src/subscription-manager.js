@@ -1,43 +1,18 @@
-let store;
-let subscriptions = [];
-
-export function subscribe(subscription) {
+export default function (store, predicate, selector) {
   let promiseResolver;
-  const promise = new Promise(resolve => {
-    promiseResolver = resolve;
-  });
-  const state = store.getState();
+  const {getState, subscribe} = store;
+  const subscriptionPromise = new Promise(resolve => { promiseResolver = resolve; });
 
-  subscriptions = [
-    ...subscriptions, {
-      ...subscription,
-      resolve: promiseResolver
+  const unsubscribeFromStore = subscribe(() => {
+    const currentState = getState();
+
+    if (predicate(currentState)) {
+      promiseResolver(selector(currentState));
     }
-  ];
+  });
 
-  if (subscription.predicate(state)) {
-    promiseResolver(subscription.selector(state));
-  }
-
-  return promise;
-}
-
-export function setStore(s) {
-  store = s;
-
-  store.subscribe(() => {
-    const newState = store.getState();
-
-    subscriptions = subscriptions
-      .map(subscription => {
-        if (subscription.predicate(newState)) {
-          subscription.resolve(subscription.selector(newState));
-
-          return null;
-        }
-
-        return subscription;
-      })
-      .filter(Boolean);
+  return subscriptionPromise.then(result => {
+    unsubscribeFromStore();
+    return result;
   });
 }
