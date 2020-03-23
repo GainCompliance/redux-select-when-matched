@@ -34,5 +34,5 @@ branches:
       restrictions: null
       enforce_admins: true
 teams:
-  - name: '@GainComplaince/front-end'
-    permission: push
+  - name: front-end
+    permission: pull
