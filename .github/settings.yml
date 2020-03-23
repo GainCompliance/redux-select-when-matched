@@ -33,3 +33,6 @@ branches:
       required_status_checks: null
       restrictions: null
       enforce_admins: true
+teams:
+  - name: '@GainComplaince/front-end'
+    permission: push
