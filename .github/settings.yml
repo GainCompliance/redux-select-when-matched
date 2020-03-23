@@ -35,4 +35,4 @@ branches:
       enforce_admins: true
 teams:
   - name: front-end
-    permission: pull
+    permission: push
