@@ -1,1 +1,1 @@
-export * from './subscription-manager';
+export {default} from './subscription-manager';

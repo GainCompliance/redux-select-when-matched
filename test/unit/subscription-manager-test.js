@@ -1,51 +1,50 @@
 import sinon from 'sinon';
 import any from '@travi/any';
 import {assert} from 'chai';
-import {setStore, subscribe} from '../../src';
+import selectWhenMatched from '../../src';
 
-suite('subscription', () => {
+function simulateStateChange(store) {
+  store.subscribe.getCall(0).args[0]();
+}
+
+suite('select-when-matched', () => {
+  let subscribeToStoreChanges, unsubscribeFromStore, getState, store;
+  const item = any.simpleObject();
+
+  setup(() => {
+    subscribeToStoreChanges = sinon.stub();
+    unsubscribeFromStore = sinon.spy();
+    getState = sinon.stub();
+    store = {getState, subscribe: subscribeToStoreChanges};
+  });
+
   test('that the promise is resolved when the predicate returns `true`', async () => {
-    const subscribeToStoreChanges = sinon.spy();
-    const item = any.simpleObject();
-    const getState = sinon.stub();
+    const predicate = state => !!state.foo;
+    const selector = state => state.foo.bar.baz;
+    subscribeToStoreChanges.returns(unsubscribeFromStore);
     getState
       .onFirstCall().returns(any.simpleObject())
       .onSecondCall().returns({...any.simpleObject(), foo: {bar: {baz: item}}});
-    setStore({getState, subscribe: subscribeToStoreChanges});
-    const stateChangeHandler = subscribeToStoreChanges.getCall(0).args[0];
 
-    const promise = subscribe({
-      predicate: state => !!state.foo,
-      selector: state => state.foo.bar.baz
-    });
+    const resultPromise = selectWhenMatched(store, predicate, selector);
+    assert.calledOnce(subscribeToStoreChanges);
 
-    stateChangeHandler();
+    simulateStateChange(store);
+    assert.calledOnce(getState);
 
-    assert.equal(await promise, item);
+    simulateStateChange(store);
+    assert.equal(await resultPromise, item);
   });
 
-  test('that a promise that has been resolved is not checked again for further state updates', async () => {
-    const subscribeToStoreChanges = sinon.spy();
-    const selector = sinon.spy();
-    const getState = sinon.stub();
-    getState
-      .onFirstCall().returns(any.simpleObject())
-      .onSecondCall().returns(any.simpleObject());
-    setStore({getState, subscribe: subscribeToStoreChanges});
-    const stateChangeHandler = subscribeToStoreChanges.getCall(0).args[0];
+  test('that when the promise is resolve the subscription is unsubscribed', async () => {
+    const predicate = () => true;
+    const selector = () => undefined;
+    subscribeToStoreChanges.returns(unsubscribeFromStore);
 
-    const promise = subscribe({
-      predicate: () => true,
-      selector
-    });
+    const resultPromise = selectWhenMatched(store, predicate, selector);
+    simulateStateChange(store);
+    await resultPromise;
 
-    stateChangeHandler();
-
-    await promise;
-    selector.resetHistory();
-
-    stateChangeHandler();
-
-    assert.notCalled(selector);
+    assert.calledOnce(unsubscribeFromStore);
   });
 });
