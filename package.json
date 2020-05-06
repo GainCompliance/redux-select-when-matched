@@ -44,7 +44,7 @@
     "chai": "^4.2.0",
     "codecov": "3.6.5",
     "commitlint-config-gain": "1.0.20",
-    "cz-conventional-changelog": "3.1.0",
+    "cz-conventional-changelog": "3.2.0",
     "doctoc": "1.4.0",
     "husky": "4.2.5",
     "mocha": "7.1.2",
