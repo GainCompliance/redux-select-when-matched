@@ -34,7 +34,7 @@
     }
   },
   "devDependencies": {
-    "@babel/plugin-external-helpers": "7.8.3",
+    "@babel/plugin-external-helpers": "7.10.1",
     "@babel/register": "7.9.0",
     "@gaincompliance/babel-preset": "4.0.20",
     "@gaincompliance/eslint-config": "1.0.31",
