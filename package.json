@@ -39,7 +39,7 @@
     "@gaincompliance/babel-preset": "4.0.36",
     "@gaincompliance/eslint-config": "1.0.32",
     "@gaincompliance/eslint-config-mocha": "1.0.8",
-    "@travi/any": "2.0.11",
+    "@travi/any": "2.0.12",
     "ban-sensitive-files": "^1.9.2",
     "chai": "^4.2.0",
     "codecov": "3.7.2",
