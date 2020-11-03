@@ -42,7 +42,7 @@
     "@travi/any": "2.0.13",
     "ban-sensitive-files": "^1.9.2",
     "chai": "^4.2.0",
-    "codecov": "3.8.0",
+    "codecov": "3.8.1",
     "commitlint-config-gain": "1.0.26",
     "cz-conventional-changelog": "3.3.0",
     "doctoc": "1.4.0",
