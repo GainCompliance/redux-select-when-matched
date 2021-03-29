@@ -43,7 +43,7 @@
     "ban-sensitive-files": "^1.9.2",
     "chai": "^4.2.0",
     "codecov": "3.8.1",
-    "commitlint-config-gain": "1.0.29",
+    "commitlint-config-gain": "1.0.30",
     "cz-conventional-changelog": "3.3.0",
     "doctoc": "2.0.0",
     "husky": "6.0.0",
